@@ -90,7 +90,53 @@ strcpy(v_name[slot], var_name);
 
     strcpy(v_name[slot], var_name);
 
-    if (code_line[value_start] == '"')
+    char type_v = get_type(code_line, value_start);
+    if(type_v == 's'){ // 문자열
+        int str_len = 0;
+        v_type[slot] = 2;
+        value_start++;
+
+        //하나씩 입력하기
+        while (code_line[value_start] != '"' && code_line[value_start] != '\0' && str_len < 299)
+        {
+            char_v[slot][str_len] = code_line[value_start];
+            str_len++;
+            value_start++;
+        }
+        char_v[slot][str_len] = '\0';
+    }else if(type_v == '1'){ //True
+        v_type[slot] = 3;
+        bool_v[slot] = 1;
+
+    }else if(type_v == '0'){ // False
+        v_type[slot] = 3;
+        bool_v[slot] = 0;
+
+    }else if(type_v == 'd'){//double
+        v_type[slot] = 1;
+        sscanf(&code_line[value_start], "%lf", &double_v[slot]);
+
+    }else if(type_v == 'i'){//int
+        sscanf(&code_line[value_start], "%d", &int_v[slot]);
+    }else if(type_v == 'f'){
+        strncpy(code_line, code_line + value_start, strlen(code_line) - value_start);
+        int str_len = 0;
+        v_type[slot] = 2;
+        value_start++;
+
+        //하나씩 입력하기
+        while (code_line[value_start] != '"' && code_line[value_start] != '\0' && str_len < 299)
+        {
+            char_v[slot][str_len] = code_line[value_start];
+            str_len++;
+            value_start++;
+        } 
+    }
+
+    if (slot == v_count)
+        v_count++; // 새 변수일 때만 개수 +1 (재대입은 그대로)
+
+    /* if (code_line[value_start] == '"')
     { // 문자열
         v_type[slot] = 2;
         value_start++;
@@ -127,5 +173,5 @@ strcpy(v_name[slot], var_name);
     }
 
     if (slot == v_count)
-        v_count++; // 새 변수일 때만 개수 +1 (재대입은 그대로)
+        v_count++; // 새 변수일 때만 개수 +1 (재대입은 그대로) */
 }
