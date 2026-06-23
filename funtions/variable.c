@@ -45,7 +45,14 @@ void variable(char code_line[]){
     int value_start = equal_pos + 1;
     while (code_line[value_start] == ' ')
         value_start++;
-/* 
+
+    // 3-1. 오른쪽이 input(...) 이면 input 함수로 넘기기 (input.c 와 연결)
+    if (strncmp(&code_line[value_start], "input", 5) == 0 &&
+        (code_line[value_start + 5] == '(' || code_line[value_start + 5] == ' ')) {
+        input(code_line);
+        return;
+    }
+/*
 a = 3   
 a = 2
 a = "a"

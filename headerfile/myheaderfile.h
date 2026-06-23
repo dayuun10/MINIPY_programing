@@ -3,7 +3,7 @@
 void input_cmd();
 void interpret(char input[110][510],int i);
 void print(char output[500]);
-void error(char error_code[500], int n, char error_message[100]);
+void error(char error_code[500], int n, char error_message[]);
 void variable(char code_line[]);
 int rm_space(char input[500], int n);
 void rm_space_idx(char arr[500], int n);
