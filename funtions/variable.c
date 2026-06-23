@@ -112,18 +112,7 @@ strcpy(v_name[slot], var_name);
     }else if(type_v == 'i'){//int
         sscanf(&code_line[value_start], "%d", &int_v[slot]);
     }else if(type_v == 'f'){
-        strncpy(code_line, code_line + value_start, strlen(code_line) - value_start);
-        int str_len = 0;
-        v_type[slot] = 2;
-        value_start++;
-
-        //하나씩 입력하기
-        while (code_line[value_start] != '"' && code_line[value_start] != '\0' && str_len < 299)
-        {
-            char_v[slot][str_len] = code_line[value_start];
-            str_len++;
-            value_start++;
-        } 
+        input()
     }
 
     if (slot == v_count)
