@@ -4,8 +4,5 @@
     "terminal.integrated.fontSize": 16,
     "editor.parameterHints.enabled": false,
     "files.autoSave": "afterDelay",
-    "code-runner.executorMap": {
-        "c": "cd $dir && gcc *.c funtions/*.c -o main && ./main"
-    },
     "code-runner.ignoreSelection": true
 }
