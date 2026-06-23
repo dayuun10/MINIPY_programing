@@ -16,7 +16,7 @@ char get_type(char v[100], int n){
 
     int count_dot = 0, i = n, is_operation = 0;
 
-    v = rms_arr(v, i, 'a'); 
+    v = rms_arr(v, i, 'a'); //앞뒤 공백 지우기
 
     if(v[i] >= '0' && v[i] <= '9' ||  //0 ~ 9거나
     v[i] == '-' && v[i+1] >= '0' && v[i+1] <= '9' ||  // -로 시작하는 숫자거나
