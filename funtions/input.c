@@ -114,7 +114,7 @@ void input(char code_line[500]) {
             return;
         }
     }
-
+ 
     // 8. 새 변수면 저장 공간이 남아있는지 확인 (배열 크기 100)
     if (slot == v_count && v_count >= 100) {
         error(code_line, 0, "변수 개수가 100개를 초과했습니다");
