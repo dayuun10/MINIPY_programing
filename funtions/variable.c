@@ -119,7 +119,7 @@ strcpy(v_name[slot], var_name);
     }else if(type_v == 'i'){//int
         sscanf(&code_line[value_start], "%d", &int_v[slot]);
     }else if(type_v == 'f'){
-        input()
+        strcpy(char_v[slot], input(code_line + value_start));
     }
 
     if (slot == v_count)
