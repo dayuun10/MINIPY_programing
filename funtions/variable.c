@@ -118,6 +118,43 @@ void variable(char code_line[]){
             return;
         }
         strcpy(char_v[slot], input_result);
+    }else if(type_v == 'o'){
+        int num_oprt = 0;
+
+            for(int l = value_start; code_line[l] != '\0'; l++){ //연산자 개수 세기
+                char temp = code_line[l];
+                if(l > 0 && code_line[l-1] >= '0' && code_line[l-1] <= '9' && (code_line[l] == '+' || code_line[l] == '-' )|| //부호가 아닌 연산자 +, -
+                code_line[l] == '*' || code_line[l] == '/' || code_line[l] == '%' ){ 
+                    num_oprt ++;
+                }
+            }
+            double a, b; 
+            char oprt;
+            int pos = value_start, read_len = 0; //pos: 누적 읽은 문자 개수, read_len: 지금 읽은 문자 개수
+
+
+            sscanf(code_line+pos,"%lf%n", &a, &read_len);
+            pos += read_len;
+            for(int l = 0; l < num_oprt; l++){
+
+                sscanf(code_line+pos, " %c%lf%n", &oprt, &b, &read_len);
+                pos += read_len;
+
+                if(oprt == '+') a += b;
+                else if(oprt == '-') a -= b;
+                else if(oprt == '*') a *= b;
+                else if(oprt == '/') a /= b;
+                else if(oprt == '%'){
+                    if((int)a == a && (int)b == b) a = (int)a % (int)b;
+                    else {
+                        error(code_line, l, "실수형 자료형에선 % 연산자를 사용할 수 없습니다. ");
+                        return;
+                    }
+                }
+            }
+            v_type[slot] = 1;
+            double_v[slot] = a;
+
     }else if(type_v == 'e') return;
 
     if (slot == v_count)
