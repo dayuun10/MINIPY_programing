@@ -73,7 +73,7 @@ void variable(char code_line[]){
             char* type_names[] = {"int", "float", "string", "bool"};
             char msg[200];
             sprintf(msg, "%s타입 변수 '%s'은(는) %s로 바꿀 수 없습니다",
-                var_name, type_names[v_type[slot]], type_names[new_type]);
+                 type_names[v_type[slot]], var_name,type_names[new_type]);
             error(code_line, equal_pos, msg);
             return;
         }
@@ -114,7 +114,7 @@ void variable(char code_line[]){
         v_type[slot] = 2;
         char input_text[500];
         strcpy(input_text, input(code_line + value_start));
-        if(strcmp(input_text, "에러 발생") == 0){
+        if(strcmp(input_text, "오류 발생") == 0){
             return;
         }
         strcpy(char_v[slot], input_text);

@@ -21,15 +21,18 @@ char* input(char code_line[500]) {
         error(code_line, i, "괄호가 없습니다.");
         return "오류 발생";
     }else{
-        i++; // 괄호 다음 
-        for(int j = i; code_line[j] != ')'; j++){
-
-            printf("%c",code_line[j]); 
-
+        int j, is_string = 0;
+        for(j = i+1; code_line[j] != ')' || is_string; j++){
             if(code_line[j] == '\0'){
                 error(code_line, j, "괄호가 닫히지 않습니다.");
                 return "오류 발생";
-            }
+            }else if(code_line[j] == '"') is_string = !is_string;
+        }
+        if(j - i > 1){
+            char print_text[500];
+            strcpy(print_text, "print");
+            strcat(print_text, code_line + i);
+            print(print_text);
         }
         fgets(input_text, sizeof(input_text), stdin);
         input_text[strcspn(input_text, "\n")] = '\0';

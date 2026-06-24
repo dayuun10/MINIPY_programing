@@ -11,3 +11,4 @@ int find_char(char str[], int start, char target); //배열에서 start 인덱�
 char* rms_arr(char code_line[500], int n, char l_r_a);
 char get_type(char v[100], int n);
 char* input(char code_line[500]);
+void reset_global();

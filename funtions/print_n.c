@@ -17,7 +17,7 @@ void print(char output[500]){ //예) print ("hello world") >> output
     strcpy(prt_txt, rms_arr(output, i, 'a')); // "print" 이후부터 print_text의 좌우 여백 삭제
     
     i = 0;
-    for(int j = 0; prt_txt[j] != ')'; j++, col++){ // , 단위로 나눠서 args에 넣기
+    for(int j = 0; prt_txt[j] != ')' || is_str; j++, col++){ // , 단위로 나눠서 args에 넣기
         if(prt_txt[j] == ',' && !is_str){ //다음 행으로 
             args[i][col] = '\0';
             i++;
@@ -90,5 +90,5 @@ void print(char output[500]){ //예) print ("hello world") >> output
             else if(v_type[l] == 3) printf("%s ",(bool_v[l] == 1)? "True": "False");
         }else if(a_type == 'e') return;
     }
-    printf("\n");
+    
 }

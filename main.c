@@ -13,6 +13,7 @@ int v_type[100];
 int v_count = 0; //지금까지 만든 변수 개수
 char arr[500];
 char input_text[500];
+void reset_global();
 
 int idx = 0; //print에서 output[idx] 이렇게 쓰임 (index)
 
@@ -21,7 +22,27 @@ int main(){
     input_cmd();
 }
 
+void reset_global(){
+    memset(code_line, 0, sizeof(code_line));
+
+    memset(v_name, 0, sizeof(v_name));
+    memset(int_v, 0, sizeof(int_v));
+    memset(bool_v, 0, sizeof(bool_v));
+    memset(char_v, 0, sizeof(char_v));
+    memset(double_v, 0, sizeof(double_v));
+    memset(v_type, 0, sizeof(v_type));
+
+    memset(arr, 0, sizeof(arr));
+    memset(input_text, 0, sizeof(input_text));
+
+    v_count = 0;
+    idx = 0;
+}
+
 void input_cmd(){
+
+reset_global();
+
     printf("\
 ┌───────────────────────────────┐\n\
 \n\
@@ -68,7 +89,10 @@ void interpret(char code_line[110][510],int i){
             }
         }
 
-        if(strncmp(code_line[n], "print", 5) == 0 && (code_line[n][rm_space(code_line[n],5)] == '(')) print(code_line[n]); // print ( 로 시작하면 print 함수로 넘기기
+        if(strncmp(code_line[n], "print", 5) == 0 && (code_line[n][rm_space(code_line[n],5)] == '(')) {
+            print(code_line[n]);
+            printf("\n");
+        } // print ( 로 시작하면 print 함수로 넘기기
         else variable(code_line[n]);
 
     }
