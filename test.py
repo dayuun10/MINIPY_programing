@@ -1,2 +1,2 @@
-a = input("입력하세요 >> ")
+a = input(3)
 print(a)

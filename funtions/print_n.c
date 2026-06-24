@@ -17,7 +17,8 @@ void print(char output[500]){ //예) print ("hello world") >> output
     strcpy(prt_txt, rms_arr(output, i, 'a')); // "print" 이후부터 print_text의 좌우 여백 삭제
     
     i = 0;
-    for(int j = 0; prt_txt[j] != ')' || is_str; j++, col++){ // , 단위로 나눠서 args에 넣기
+    int j;
+    for(j = 0; prt_txt[j] != ')' || is_str; j++, col++){ // , 단위로 나눠서 args에 넣기
         if(prt_txt[j] == ',' && !is_str){ //다음 행으로 
             args[i][col] = '\0';
             i++;
@@ -31,6 +32,12 @@ void print(char output[500]){ //예) print ("hello world") >> output
 
         if(prt_txt[j] == '"'){
             is_str = !is_str;
+        }
+    }
+    for(j++ ;prt_txt[j] != '\0'; j++){
+        if(prt_txt[j] != ' '){
+            error(output, 5+ j + 1 , "괄호 뒤에 허용되지 않은 문자가 있습니다. ");
+            return;
         }
     }
     args[i][col] = '\0';
@@ -88,7 +95,7 @@ void print(char output[500]){ //예) print ("hello world") >> output
             else if(v_type[l] == 1) printf("%g ",double_v[l]);
             else if(v_type[l] == 2) printf("%s ",char_v[l]);
             else if(v_type[l] == 3) printf("%s ",(bool_v[l] == 1)? "True": "False");
-        }else if(a_type == 'e') return;
+        }else if(a_type == 'e' || a_type == 'n') return;
     }
     
 }

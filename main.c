@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<string.h>
-#include <locale.h>
 #include"headerfile/global_v.h"
 #include"headerfile/myheaderfile.h"
 
@@ -18,11 +17,10 @@ void reset_global();
 int idx = 0; //print에서 output[idx] 이렇게 쓰임 (index)
 
 int main(){
-    setlocale(LC_ALL, "");
     input_cmd();
 }
 
-void reset_global(){
+void reset_global(){ //전역변수 초기화
     memset(code_line, 0, sizeof(code_line));
 
     memset(v_name, 0, sizeof(v_name));
@@ -107,7 +105,7 @@ int rm_space(char code_line[500], int n){ //공백 건너뛰기
 char* rms_arr(char code_line[500], int n, char l_r_a){ //공백을 삭제한 배열 리턴 >> rms_arr("  an apple ") >> "an apple" 리턴 (앞뒤 공백만 삭제)
     
     int cnt = 1, l, r ; //cnt: 공백 삭제할 문자열 길이
-    
+    memset(arr, 0, sizeof(arr));
     for(; code_line[cnt-1] != '\0'; cnt++){} //공백 삭제할 문자열 길이 구하기
     if(l_r_a == 'l'){//왼쪽 공백만 삭제
         for(l = n; code_line[l] == ' '; l++){}

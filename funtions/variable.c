@@ -112,12 +112,12 @@ void variable(char code_line[]){
         sscanf(&code_line[value_start], "%d", &int_v[slot]);
     }else if(type_v == 'f'){
         v_type[slot] = 2;
-        char input_text[500];
-        strcpy(input_text, input(code_line + value_start));
-        if(strcmp(input_text, "오류 발생") == 0){
+        char input_result[500];
+        strcpy(input_result, input(code_line + value_start));
+        if(strcmp(input_result, "오류 발생") == 0){
             return;
         }
-        strcpy(char_v[slot], input_text);
+        strcpy(char_v[slot], input_result);
     }else if(type_v == 'e') return;
 
     if (slot == v_count)

@@ -79,8 +79,8 @@ char get_type(char v[100], int n){
         // 어차피 인풋 함수 호출하면 그 안에서 따로 문법검사 할거라 이정도만 해도 상관없음
         return 'f';
     }else{
+        if(strlen(v) < 1) return 'n';
         for(int j = 0; j < v_count; j++){
-            i++;
             if(!strcmp(v_name[j], v)) return 'v'; //변수 이름 목록에 있으면 
         }
         error(v,i, "변수가 선언되지 않았습니다. ");
