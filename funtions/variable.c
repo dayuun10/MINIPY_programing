@@ -120,7 +120,7 @@ strcpy(v_name[slot], var_name);
         sscanf(&code_line[value_start], "%d", &int_v[slot]);
     }else if(type_v == 'f'){
         strcpy(char_v[slot], input(code_line + value_start));
-    }
+    }else if(type_v == 'e') return;
 
     if (slot == v_count)
         v_count++; // 새 변수일 때만 개수 +1 (재대입은 그대로)

@@ -10,4 +10,4 @@ void rm_space_idx(char arr[500], int n);
 int find_char(char str[], int start, char target); //배열에서 start 인덱스부터 시작해서 처음으로 만난 target의 인덱스 번호 출력
 char* rms_arr(char code_line[500], int n, char l_r_a);
 char get_type(char v[100], int n);
-void input(char code_line[500]);
+char* input(char code_line[500]);
