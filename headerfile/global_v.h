@@ -9,6 +9,7 @@ extern double double_v[100];
 extern int v_type[100]; 
 extern int v_count; //지금까지 만든 변수 개수
 extern char arr[500];
+extern char input_text[500];
 
 extern int idx; //print에서 output[idx] 이렇게 쓰임 (index)
 

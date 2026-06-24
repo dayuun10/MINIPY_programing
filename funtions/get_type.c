@@ -17,6 +17,7 @@ char get_type(char v[100], int n){
     int count_dot = 0, i = n, is_operation = 0;
 
     v = rms_arr(v, i, 'a'); //앞뒤 공백 지우기
+    i = 0;
 
     if(v[i] >= '0' && v[i] <= '9' ||  //0 ~ 9거나
     v[i] == '-' && v[i+1] >= '0' && v[i+1] <= '9' ||  // -로 시작하는 숫자거나
@@ -79,7 +80,8 @@ char get_type(char v[100], int n){
         return 'f';
     }else{
         for(int j = 0; j < v_count; j++){
-            if(!strcmp(v_name[j], v + i)) return 'v'; //변수 이름 목록에 있으면 
+            i++;
+            if(!strcmp(v_name[j], v)) return 'v'; //변수 이름 목록에 있으면 
         }
         error(v,i, "변수가 선언되지 않았습니다. ");
         return 'e';

@@ -45,51 +45,42 @@ void variable(char code_line[]){
     int value_start = equal_pos + 1;
     while (code_line[value_start] == ' ')
         value_start++;
-
-    // 3-1. 오른쪽이 input(...) 이면 input 함수로 넘기기 (input.c 와 연결)
-    if (strncmp(&code_line[value_start], "input", 5) == 0 &&
-        (code_line[value_start + 5] == '(' || code_line[value_start + 5] == ' ')) {
-        input(code_line);
-        return;
-    }
-/*
-a = 3   
-a = 2
-a = "a"
->> 이렇게 변수 자료형이 바뀌면 에러 뜨게
- */
-int slot = v_count;
-for (int k = 0; k < v_count; k++)
-{
-    if (strcmp(v_name[k], var_name) == 0)
+    /*
+    a = 3   
+    a = 2
+    a = "a"
+    >> 이렇게 변수 자료형이 바뀌면 에러 뜨게
+    */
+    int slot = v_count;
+    for (int k = 0; k < v_count; k++)
     {
-        slot = k;
-        break;
+        if (strcmp(v_name[k], var_name) == 0)
+        {
+            slot = k;
+            break;
+        }
     }
-}
-if (slot != v_count) {  // 기존 변수일 때만
-    int new_type;
-    if (code_line[value_start] == '"') new_type = 2;
-    else if (strncmp(&code_line[value_start], "True", 4) == 0 ||
-             strncmp(&code_line[value_start], "False", 5) == 0) new_type = 3;
-    else if (strchr(&code_line[value_start], '.') != NULL) new_type = 1;
-    else new_type = 0;
+    if (slot != v_count) {  // 기존 변수일 때만
+        int new_type;
+        if (code_line[value_start] == '"') new_type = 2;
+        else if (strncmp(&code_line[value_start], "True", 4) == 0 ||
+                strncmp(&code_line[value_start], "False", 5) == 0) new_type = 3;
+        else if (strchr(&code_line[value_start], '.') != NULL) new_type = 1;
+        else new_type = 0;
 
-    if (v_type[slot] != new_type) {
-        // 타입 이름 출력용
-        char* type_names[] = {"int", "float", "string", "bool"};
-        char msg[200];
-        sprintf(msg, "%s타입 변수 '%s'은(는) %s로 바꿀 수 없습니다",
-            var_name, type_names[v_type[slot]], type_names[new_type]);
-        error(code_line, equal_pos, msg);
-        return;
+        if (v_type[slot] != new_type) {
+            // 타입 이름 출력용
+            char* type_names[] = {"int", "float", "string", "bool"};
+            char msg[200];
+            sprintf(msg, "%s타입 변수 '%s'은(는) %s로 바꿀 수 없습니다",
+                var_name, type_names[v_type[slot]], type_names[new_type]);
+            error(code_line, equal_pos, msg);
+            return;
+        }
     }
-}
 
-strcpy(v_name[slot], var_name);
 
     strcpy(v_name[slot], var_name);
-
     char type_v = get_type(code_line, value_start);
     if(type_v == 's'){ // 문자열
         int str_len = 0;
@@ -117,50 +108,19 @@ strcpy(v_name[slot], var_name);
         sscanf(&code_line[value_start], "%lf", &double_v[slot]);
 
     }else if(type_v == 'i'){//int
+        v_type[slot] = 0;
         sscanf(&code_line[value_start], "%d", &int_v[slot]);
     }else if(type_v == 'f'){
-        strcpy(char_v[slot], input(code_line + value_start));
+        v_type[slot] = 2;
+        char input_text[500];
+        strcpy(input_text, input(code_line + value_start));
+        if(strcmp(input_text, "에러 발생") == 0){
+            return;
+        }
+        strcpy(char_v[slot], input_text);
     }else if(type_v == 'e') return;
 
     if (slot == v_count)
         v_count++; // 새 변수일 때만 개수 +1 (재대입은 그대로)
 
-    /* if (code_line[value_start] == '"')
-    { // 문자열
-        v_type[slot] = 2;
-        value_start++;
-        int str_len = 0;
-        while (code_line[value_start] != '"' && code_line[value_start] != '\0' && str_len < 299)
-        {
-            char_v[slot][str_len] = code_line[value_start];
-            str_len++;
-            value_start++;
-        }
-        char_v[slot][str_len] = '\0';
-    }
-    else if (strncmp(&code_line[value_start], "True", 4) == 0 &&
-             (code_line[value_start + 4] == '\0' || code_line[value_start + 4] == ' '))
-    { // True (뒤에 글자 더 붙은 Truexxx 는 제외)
-        v_type[slot] = 3;
-        bool_v[slot] = 1;
-    }
-    else if (strncmp(&code_line[value_start], "False", 5) == 0 &&
-             (code_line[value_start + 5] == '\0' || code_line[value_start + 5] == ' '))
-    { // False
-        v_type[slot] = 3;
-        bool_v[slot] = 0;
-    }
-    else if (strchr(&code_line[value_start], '.') != NULL)
-    { // 점 있으면 실수
-        v_type[slot] = 1;
-        sscanf(&code_line[value_start], "%lf", &double_v[slot]);
-    }
-    else
-    { // 나머지는 정수
-        v_type[slot] = 0;
-        sscanf(&code_line[value_start], "%d", &int_v[slot]);
-    }
-
-    if (slot == v_count)
-        v_count++; // 새 변수일 때만 개수 +1 (재대입은 그대로) */
 }
