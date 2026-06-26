@@ -22,8 +22,11 @@ char* input(char code_line[500]) {
     }else{
         int j, is_string = 0;
         for(j = i+1; code_line[j] != ')' || is_string; j++){
-            if(code_line[j] == '\0'){
+            if(code_line[j] == '\0' && !is_string ){
                 error(code_line, j, "괄호가 닫히지 않습니다.");
+                return "오류 발생";
+            }else if(code_line[j] == '\0' && is_string){
+                error(code_line, j, "\" 가 없습니다. ");
                 return "오류 발생";
             }else if(code_line[j] == '"') is_string = !is_string;
         }

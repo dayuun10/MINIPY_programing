@@ -23,9 +23,12 @@ void print(char output[500]){ //예) print ("hello world") >> output
             args[i][col] = '\0';
             i++;
             col = -1; // 반복이 끝나고 1 더해져서 다음 반복 떄 0에 넣으려면 -1로 해야됨
-        }else if(prt_txt[j] == '\0'){ // 끝날 때까지 괄호가 안닫히면 오류
+        }else if(prt_txt[j] == '\0' && !is_str){ // 끝날 때까지 괄호가 안닫히면 오류
             error(output, 5 + j+1, "괄호가 닫히지 않습니다. ");
             return;
+        }else if(prt_txt[j] == '\0'  && is_str){
+                error(output, j+6, "\" 가 없습니다. ");
+                return;
         }else{
             args[i][col] = prt_txt[j];
         }
